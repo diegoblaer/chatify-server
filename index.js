@@ -21,6 +21,7 @@ const EVENTS = {
   USER_CONNECTED: "user_connected",
   USER_DISCONNECTED: "user_disconnected",
   NEW_MESSAGE: "new_message",
+  DISCONNECT: "disconnect",
 };
 
 app.get("/", (req, res) => {
@@ -53,13 +54,13 @@ io.on("connection", (socket) => {
     callback?.();
   });
 
-  socket.on("new_message", (text) => {
+  socket.on(EVENTS.NEW_MESSAGE, (text) => {
     const user = getUser(socket.id);
     console.log(`New message from: ${user.id}`);
     io.emit(EVENTS.NEW_MESSAGE, { user, text });
   });
 
-  socket.on("disconnect", () => {
+  socket.on(EVENTS.DISCONNECT, () => {
     const user = removeUser(socket.id);
     if (user) {
       console.log(`User disconnected: ${user.id}`);
