@@ -10,10 +10,6 @@ const port = process.env.PORT || 4000;
 
 const io = new Server(server, {
   port,
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
-  },
 });
 
 const EVENTS = {
@@ -41,7 +37,7 @@ io.on("connection", (socket) => {
     const { error, user } = addUser({ id: socket.id, ...options });
 
     if (error) {
-      return;
+      return callback?.(error);
     }
 
     console.log(`User connected: ${user.id}`);
