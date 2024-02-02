@@ -10,6 +10,10 @@ const port = process.env.PORT || 4000;
 
 const io = new Server(server, {
   port,
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+  },
 });
 
 const EVENTS = {
