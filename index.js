@@ -11,7 +11,7 @@ const port = process.env.PORT || 4000;
 const io = new Server(server, {
   port,
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://diegoblaer-chatify.vercel.app"],
     methods: ["GET", "POST"],
   },
 });
